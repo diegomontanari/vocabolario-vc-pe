@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocabolario del Venture Capital & Private Equity</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #fff;
+      color: #111;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    header { margin-bottom: 2.5rem; }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    header a {
+      color: #111;
+      font-size: 0.85rem;
+      text-decoration: none;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .search-wrap {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      stroke: #aaa;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      pointer-events: none;
+    }
+
+    #search {
+      width: 100%;
+      padding: 0.6rem 0.75rem 0.6rem 2.25rem;
+      font-size: 0.95rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      outline: none;
+      background: #fafafa;
+      color: #111;
+      transition: border-color 0.15s;
+    }
+
+    #search:focus { border-color: #aaa; background: #fff; }
+    #search::placeholder { color: #bbb; }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #bbb;
+      margin: 2rem 0 0.5rem;
+    }
+
+    .term {
+      border-top: 1px solid #f0f0f0;
+      padding: 0.85rem 0;
+    }
+
+    .term:last-child { border-bottom: 1px solid #f0f0f0; }
+
+    .term-name {
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .term-def {
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.65;
+    }
+
+    .term-example {
+      font-size: 0.83rem;
+      color: #999;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .term-link {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 0.8rem;
+      color: #888;
+      text-decoration: none;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .term-link:hover { color: #333; border-color: #aaa; }
+
+    mark {
+      background: #fef08a;
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
+    .empty {
+      font-size: 0.9rem;
+      color: #bbb;
+      padding: 2rem 0;
+    }
+
+    .count {
+      font-size: 0.8rem;
+      color: #bbb;
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #f0f0f0;
+      font-size: 0.8rem;
+      color: #bbb;
+    }
+
+    footer a { color: #bbb; }
+
+    @media (prefers-color-scheme: dark) {
+      body { background: #0f0f0f; color: #e8e8e8; }
+      #search { background: #1a1a1a; color: #e8e8e8; border-color: #2a2a2a; }
+      #search:focus { background: #1f1f1f; border-color: #444; }
+      #search::placeholder { color: #555; }
+      .search-wrap svg { stroke: #555; }
+      .term { border-top-color: #1e1e1e; }
+      .term:last-child { border-bottom-color: #1e1e1e; }
+      .term-def { color: #999; }
+      .term-example { color: #666; }
+      .term-link { color: #666; border-color: #2a2a2a; }
+      .term-link:hover { color: #aaa; border-color: #555; }
+      .section-label { color: #444; }
+      footer { border-top-color: #1e1e1e; }
+      header a { color: #e8e8e8; border-color: #333; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>Vocabolario del Venture Capital & Private Equity</h1>
+    <p>45 termini del mondo degli investitori, spiegati in italiano. <a href="https://diegomontanari.com" target="_blank">diegomontanari.com</a></p>
+  </header>
+
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="search" placeholder="Cerca un termine..." autocomplete="off" />
+  </div>
+
+  <div class="count" id="count"></div>
+  <div id="results"></div>
+
+  <footer>
+    Fonti: Glossario del corso Bocconi "Venture Capital and Private Equity" &middot; <a href="https://www.investopedia.com" target="_blank">Investopedia</a>
+  </footer>
+
+</div>
+
+<script>
+const data = [
+  {
+    section: "Fondi & Struttura",
+    terms: [
+      { name: "VC (Venture Capital)", def: "Capitale di rischio investito in startup e imprese early-stage ad alto potenziale di crescita, in cambio di quote di equity. È una asset class ad alto rischio e alto rendimento potenziale: la maggior parte degli investimenti fallisce, ma pochi exit di successo ripagano l'intero portafoglio." },
+      { name: "PE (Private Equity)", def: "Capitale investito in aziende mature, spesso non quotate, con l'obiettivo di migliorarne le performance operative e finanziarie prima di rivenderle. A differenza del VC, il PE investe tipicamente in imprese già consolidate e con cash flow stabili, spesso usando leva finanziaria." },
+      { name: "CEF (Closed-End Fund)", def: "Veicolo di investimento con una durata prestabilita (tipicamente 8-10 anni) e un ammontare di capitale fisso raccolto all'inizio. È la struttura standard dei fondi di VC e PE: gli investitori (LP) si impegnano a versare capitale che viene richiamato via via che il fondo trova opportunità." },
+      { name: "GPs (General Partners)", def: "Il soggetto che gestisce il fondo: seleziona gli investimenti, li segue nel tempo, decide gli exit. Guadagna attraverso management fee e carried interest, e ha responsabilità illimitata verso il fondo." },
+      { name: "LPs (Limited Partners) / LP (Limited Partnership)", def: "Con LP si intendono due cose distinte, spesso confuse. I Limited Partner sono gli investitori del fondo (fondi pensione, family office, endowment) che apportano capitale ma non partecipano alla gestione, con responsabilità limitata a quanto investito. La Limited Partnership è invece la struttura legale del fondo stesso, di cui LP e GP sono le due parti." },
+      { name: "LLP (Limited Liability Partnership)", def: "Struttura societaria in cui tutti i soci hanno responsabilità limitata, usata talvolta per le management company dei fondi (l'entità che impiega il team GP), distinta dal fondo LP vero e proprio." },
+      { name: "LPA (Limited Partnership Agreement)", def: "Il contratto che regola i rapporti tra GP e LP all'interno di un fondo: quanto capitale si impegna ciascun LP, come vengono calcolate fee e carried interest, quali decisioni richiedono il consenso degli investitori. È il documento fondativo di ogni fondo." },
+      { name: "AIFM (Alternative Investment Fund Manager)", def: "Il gestore autorizzato di fondi di investimento alternativi (VC, PE, hedge fund, real estate) secondo la normativa europea (direttiva AIFMD). Serve una licenza AIFM per gestire legalmente questo tipo di fondi nell'UE." },
+      { name: "AMC (Asset Management Company)", def: "La società di gestione che amministra uno o più fondi di investimento. Nel mondo PE/VC coincide spesso con l'entità che ospita il team dei GP." },
+      { name: "Vintage Year", def: "L'anno in cui un fondo effettua il suo primo investimento (o chiude il primo closing). Serve a confrontare le performance di fondi diversi: un fondo del 2020 va confrontato con altri fondi vintage 2020, non con uno del 2010, perché le condizioni di mercato erano diverse." },
+      { name: "Dry Powder", def: "Il capitale che un fondo ha raccolto dagli LP ma non ha ancora investito. Un livello alto di dry powder nell'industry significa più competizione (e valutazioni più alte) per i deal disponibili." },
+      { name: "Fund of Funds", def: "Un fondo che invece di investire direttamente in aziende, investe in altri fondi di VC o PE. Offre diversificazione agli LP che non hanno le risorse per selezionare e monitorare singoli fondi, in cambio di un ulteriore livello di fee." },
+      { name: "Co-Investment", def: "Quando un LP investe direttamente in una singola azienda del portafoglio, accanto al fondo, di solito senza pagare ulteriori fee. È un modo per gli investitori istituzionali di aumentare l'esposizione ai deal migliori." },
+      { name: "Management Fee", def: "La commissione annua che il GP addebita agli LP per gestire il fondo, tipicamente il 2% del capitale impegnato. Copre stipendi, operatività, due diligence. È indipendente dalla performance." },
+      { name: "Carried Interest", def: "La quota di profitto (tipicamente il 20%) che il GP trattiene dai guadagni del fondo, oltre alla restituzione del capitale agli LP. È l'incentivo principale del GP a generare rendimenti: se il fondo non guadagna, il carried interest è zero." },
+    ]
+  },
+  {
+    section: "Metriche di Valutazione & Ritorno",
+    terms: [
+      { name: "IRR (Internal Rate of Return)", def: "Il tasso di rendimento annuo composto di un investimento, calcolato in modo che il valore attuale netto dei flussi di cassa sia zero. È la metrica principale con cui gli LP giudicano un fondo: un IRR del 20% significa, semplificando, che il capitale investito è cresciuto in media del 20% all'anno." },
+      { name: "MOIC (Multiple on Invested Capital)", def: "Quante volte il fondo ha restituito il capitale investito, senza considerare il tempo. Un MOIC di 3x significa che ogni euro investito ne ha generati tre.", example: "A differenza dell'IRR, il MOIC non tiene conto del tempo impiegato: un 3x in 3 anni è molto meglio di un 3x in 10." },
+      { name: "DCF (Discounted Cash Flow)", def: "Metodo di valutazione che stima il valore di un'azienda attualizzando i suoi flussi di cassa futuri attesi al tasso di sconto (spesso il WACC). È il metodo più rigoroso, ma anche il più sensibile alle assunzioni: piccole variazioni nel tasso di crescita o nel tasso di sconto cambiano drasticamente il risultato." },
+      { name: "TV (Terminal Value)", def: "Il valore stimato di un'azienda oltre l'orizzonte esplicito di previsione in un DCF, che rappresenta tutti i flussi di cassa futuri dopo l'ultimo anno proiettato. Spesso costituisce la maggior parte del valore totale in un DCF, il che lo rende anche il numero più discutibile della valutazione." },
+      { name: "CFt (Cash Flow at time t)", def: "Il flusso di cassa generato in un determinato periodo t, il mattone di base con cui si costruisce qualsiasi modello DCF o calcolo di IRR." },
+      { name: "WACC (Weighted Average Cost of Capital)", def: "Il costo medio ponderato del capitale di un'azienda, calcolato pesando il costo del debito e il costo dell'equity in base al loro peso nella struttura finanziaria. Usato come tasso di sconto nei DCF: rappresenta il rendimento minimo che un investimento deve generare per creare valore." },
+      { name: "EV (Enterprise Value)", def: "Il valore complessivo di un'azienda, indipendentemente da come è finanziata: equity value più debito netto. È la cifra che un acquirente pagherebbe teoricamente per rilevare l'intera azienda, debiti inclusi." },
+      { name: "EBIT (Earnings Before Interest and Taxes)", def: "L'utile operativo di un'azienda, prima di interessi e tasse. Misura la redditività dell'attività caratteristica, indipendentemente da come l'azienda è finanziata o dal regime fiscale in cui opera." },
+      { name: "EBITDA (Earnings Before Interest, Taxes, Depreciation and Amortization)", def: "L'EBIT a cui si sommano ammortamenti e svalutazioni. È la metrica più usata nel private equity per confrontare aziende diverse, perché neutralizza le differenze di politiche contabili e struttura del capitale.", example: "La maggior parte dei multipli di valutazione in PE (EV/EBITDA) si basa su questo numero." },
+      { name: "EBT (Earnings Before Taxes)", def: "L'utile ante imposte: EBIT meno gli interessi sul debito. È l'ultimo passaggio prima di arrivare all'utile netto." },
+      { name: "NFP (Net Financial Position)", def: "La posizione finanziaria netta: debito finanziario totale meno cassa e disponibilità liquide. Una NFP negativa significa che l'azienda ha più cassa che debito. È una delle prime cifre che un investitore PE controlla per capire quanto è indebitata un'azienda." },
+      { name: "D/E (Debt-to-Equity)", def: "Il rapporto tra debito e equity nella struttura finanziaria di un'azienda. Nelle operazioni di leveraged buyout, un D/E alto è la norma: è proprio la leva del debito a generare parte del rendimento per gli investitori PE." },
+    ]
+  },
+  {
+    section: "Deal-Making & Tipologie di Operazioni",
+    terms: [
+      { name: "LBO (Leveraged Buyout)", def: "Acquisizione di un'azienda finanziata in gran parte con debito, garantito dagli stessi asset o flussi di cassa dell'azienda acquisita. È l'operazione classica del private equity: si investe poco equity, si prende in prestito il resto, e il debito viene ripagato con i flussi di cassa generati dall'azienda stessa nel tempo." },
+      { name: "M&A (Mergers and Acquisitions)", def: "L'insieme delle operazioni di fusione e acquisizione tra aziende. È il mercato in cui si comprano, vendono e fondono imprese: il contesto in cui avvengono la maggior parte degli exit di PE e VC." },
+      { name: "PIPE (Private Investment in Public Equity)", def: "Investimento privato in una società già quotata in borsa, di solito a un prezzo scontato rispetto al valore di mercato. Permette a un'azienda pubblica di raccogliere capitale rapidamente senza passare per un'offerta pubblica formale." },
+      { name: "SPACs (Special Purpose Acquisition Companies)", def: "Società-veicolo senza attività operativa, quotate in borsa con l'unico scopo di raccogliere capitale per acquisire un'azienda privata, che così può quotarsi senza passare per un IPO tradizionale. Hanno vissuto un boom nel 2020-2021 seguito da un ridimensionamento drastico." },
+      { name: "SPV (Special Purpose Vehicle)", def: "Un'entità legale creata per uno scopo specifico e isolato, spesso per raggruppare più investitori in un singolo veicolo che investe in un'azienda o per isolare il rischio di un'operazione dal resto del fondo o dell'azienda." },
+      { name: "Add-on Acquisition", def: "Acquisizione più piccola effettuata da un'azienda già in portafoglio (la platform company) per espanderne le dimensioni o le capacità. È la logica del buy-and-build: il fondo compra un'azienda solida come base e poi la fa crescere aggregando concorrenti o fornitori più piccoli." },
+      { name: "Bridge Financing", def: "Finanziamento temporaneo, spesso in forma di debito o convertible, usato per coprire il fabbisogno di cassa tra un round e il successivo, o in attesa di un evento di liquidità come un'acquisizione." },
+      { name: "Mezzanine Financing", def: "Forma di finanziamento ibrida tra debito ed equity, subordinata al debito senior ma con priorità sull'equity puro. Tipicamente prevede un tasso di interesse più alto del debito bancario, a volte accompagnato da warrant che danno diritto a una piccola quota di equity." },
+      { name: "Growth Equity", def: "Investimenti in aziende già in fase di crescita comprovata, con ricavi significativi ma bisogno di capitale per scalare ulteriormente (nuovi mercati, acquisizioni, prodotto). Si colloca a metà tra il VC (early-stage, alto rischio) e il buyout PE (aziende mature)." },
+      { name: "Buyout", def: "L'acquisizione della maggioranza (spesso della totalità) di un'azienda, di solito tramite LBO. È il modello di investimento dominante nel private equity, distinto dal VC che invece acquisisce quote di minoranza in aziende in crescita." },
+      { name: "Distressed Investing", def: "Investimento in aziende in difficoltà finanziaria, spesso vicine al default o già in procedure concorsuali, acquistandone il debito o l'equity a prezzi scontati con l'obiettivo di un turnaround o di un ritorno attraverso la ristrutturazione." },
+      { name: "CG Deals (Corporate Governance Deals)", def: "Operazioni in cui l'investitore assume una partecipazione, spesso di minoranza, con l'obiettivo primario di influenzare la governance dell'azienda (board, policy, strategia) più che di ottenere un ritorno puramente finanziario nel breve termine." },
+    ]
+  },
+  {
+    section: "Distribuzione, Uscita & Ritorno agli Investitori",
+    terms: [
+      { name: "IPO (Initial Public Offering)", def: "La prima quotazione di un'azienda in borsa. È una delle due vie di exit principali per VC e PE (l'altra è l'M&A): permette a fondatori e investitori di vendere le proprie quote sul mercato pubblico." },
+      { name: "Exit", def: "Il momento in cui un fondo vende la propria partecipazione in un'azienda, monetizzando l'investimento. Può avvenire tramite IPO, acquisizione (trade sale), vendita secondaria a un altro fondo, o ricapitalizzazione. È l'evento che genera il rendimento effettivo, non la valutazione sulla carta." },
+      { name: "Hurdle Rate", def: "Il rendimento minimo che un fondo deve generare per gli LP prima che il GP inizi a percepire carried interest, tipicamente intorno all'8% annuo. Protegge gli investitori: il GP guadagna solo se il fondo supera questa soglia." },
+      { name: "Clawback", def: "Clausola contrattuale che obbliga il GP a restituire agli LP il carried interest percepito in eccesso, se le performance complessive del fondo nel tempo risultano inferiori a quanto inizialmente distribuito.", example: "Esempio: i primi exit vanno bene e il GP incassa carried interest, ma gli exit successivi falliscono e il rendimento medio finale scende sotto la soglia pattuita." },
+      { name: "Distribution Waterfall", def: "L'ordine gerarchico con cui i proventi di un fondo vengono distribuiti tra LP e GP: prima il ritorno del capitale agli LP, poi l'hurdle rate, poi il catch-up del GP, infine la ripartizione dei profitti secondo il carried interest concordato." },
+      { name: "J-Curve", def: "L'andamento tipico del valore di un fondo di PE/VC nel tempo: scende nei primi anni (per via di fee e investimenti che non hanno ancora generato ritorni), poi risale quando iniziano gli exit. Il nome deriva dalla forma del grafico, simile alla lettera J." },
+      { name: "Follow-on Investment", def: "Un investimento aggiuntivo che un fondo fa in un'azienda già in portafoglio, in un round successivo. Serve a mantenere (o aumentare) la propria quota evitando la diluizione, e segnala fiducia agli altri investitori." },
+      { name: "Down Round", def: "Un round di finanziamento chiuso a una valutazione inferiore rispetto al round precedente. È un segnale negativo per il mercato e comporta forte diluizione per founder e primi investitori, spesso accompagnato da clausole di protezione per i nuovi investitori (anti-dilution)." },
+      { name: "Secondary Sale", def: "La vendita di quote esistenti di un'azienda da un investitore (o founder) a un altro, senza che nuovo capitale entri nelle casse dell'azienda. Diversa da un round primario, dove l'azienda emette nuove quote e incassa i soldi." },
+    ]
+  },
+  {
+    section: "Regolamentazione & Veicoli Specifici",
+    terms: [
+      { name: "EVCA (European Venture Capital Association)", def: "L'associazione europea di categoria per venture capital e private equity, oggi nota come Invest Europe. Rappresenta gli interessi dell'industry a livello di policy e definisce standard e best practice condivise." },
+      { name: "QSBS (Qualified Small Business Stock)", def: "Categoria di azioni, prevista dalla normativa fiscale statunitense, che offre agevolazioni fiscali significative (esenzione parziale o totale sulle plusvalenze) a chi investe in piccole aziende qualificate e le mantiene per almeno 5 anni. Un incentivo fiscale pensato apposta per chi investe in startup early-stage." },
+      { name: "PEX (Participation Exemption)", def: "Regime fiscale che esenta (in tutto o in parte) le plusvalenze realizzate dalla vendita di partecipazioni societarie, a certe condizioni. Riduce il carico fiscale sugli exit, ed è uno dei fattori che influenza dove i fondi scelgono di strutturare i propri veicoli." },
+      { name: "SMEs (Small-Medium Enterprises)", def: "Le piccole e medie imprese, categoria dimensionale definita da soglie di fatturato, attivi e numero di dipendenti. Molte normative e incentivi PE/VC (fiscali, di garanzia pubblica) sono calibrati specificamente su questa fascia di aziende." },
+      { name: "PPP (Public-Private Partnerships)", def: "Collaborazioni strutturate tra enti pubblici e capitale privato per finanziare e gestire infrastrutture o servizi. Alcuni fondi di PE si specializzano in questo segmento, che offre rendimenti più stabili ma regolamentati." },
+      { name: "SBIC (Small Business Investment Companies)", def: "Programma governativo statunitense che concede licenze a fondi di investimento privati per accedere a capitale pubblico a leva, a condizione che investano in piccole imprese americane. Un modo per lo stato di moltiplicare l'impatto del capitale privato disponibile per le PMI." },
+      { name: "VCT (Venture Capital Trust)", def: "Veicolo di investimento quotato, tipico del Regno Unito, che raccoglie capitale da investitori retail per finanziare piccole aziende in crescita, offrendo in cambio significativi sgravi fiscali. Rende il venture capital accessibile anche a investitori non istituzionali." },
+      { name: "VCF (Venture Capital Funds)", def: "Il fondo di venture capital nella sua accezione generica: il veicolo attraverso cui i GP raccolgono capitale dagli LP per investirlo in startup early-stage." },
+      { name: "VCM (Venture Capital Method)", def: "Metodo di valutazione usato tipicamente nel VC per stimare il valore pre-money di una startup: si parte dal valore atteso all'exit (terminal value), lo si sconta al tasso di rendimento target del fondo, e si lavora a ritroso per capire quanto l'investitore può pagare oggi per la quota desiderata." },
+      { name: "VBC (Venture-Backed Company)", def: "Un'azienda che ha ricevuto finanziamento da uno o più fondi di venture capital. La distingue dalle aziende bootstrapped o finanziate solo con debito: ha ceduto equity in cambio di capitale e, di solito, di un board con diritti di governance." },
+    ]
+  },
+];
+
+function hl(text, q) {
+  if (!q) return text;
+  const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return text.replace(re, '<mark>$1</mark>');
+}
+
+function render(q) {
+  const lq = q.toLowerCase();
+  const container = document.getElementById('results');
+  const countEl = document.getElementById('count');
+  let html = '';
+  let total = 0;
+
+  data.forEach(sec => {
+    const filtered = q
+      ? sec.terms.filter(t => t.name.toLowerCase().includes(lq) || t.def.toLowerCase().includes(lq))
+      : sec.terms;
+    if (!filtered.length) return;
+    total += filtered.length;
+    html += `<div class="section-label">${sec.section}</div>`;
+    filtered.forEach(t => {
+      html += `<div class="term">
+        <div class="term-name">${hl(t.name, q)}</div>
+        <div class="term-def">${hl(t.def, q)}</div>
+        ${t.example ? `<div class="term-example">${hl(t.example, q)}</div>` : ''}
+        ${t.link ? `<a class="term-link" href="${t.link.url}" target="_blank">${t.link.text} ↗</a>` : ''}
+      </div>`;
+    });
+  });
+
+  if (!total) {
+    html = `<p class="empty">Nessun termine trovato per "${q}".</p>`;
+    countEl.textContent = '';
+  } else {
+    countEl.textContent = q ? `${total} risultat${total === 1 ? 'o' : 'i'}` : `${total} termini`;
+  }
+
+  container.innerHTML = html;
+}
+
+render('');
+document.getElementById('search').addEventListener('input', e => render(e.target.value.trim()));
+</script>
+</body>
+</html>
